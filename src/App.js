@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Challenge</h1>
+      <Counter />
     </div>
   );
 }
 
-export default App;
+function Counter() {
+  const [step, setStep] = useState(1);
+  const [count, setCount] = useState(0);
+
+  const date = new Date();
+  date.setDate(date.getDate() + count);
+
+  function decrementCount() {
+    setCount((c) => c - step);
+  }
+  function increaseCount() {
+    setCount((c) => c + step);
+    //setDays((d) => d * step);
+  }
+
+  function decrementStep() {
+    if (step > 1) {
+      setStep((s) => s - 1);
+    }
+  }
+  function increaseStep() {
+    setStep((s) => s + 1);
+  }
+
+  return (
+    <div>
+      <div>Test</div>
+
+      <div>
+        <button onClick={decrementStep}>-</button>
+        <span>Step:{step}</span>
+        <button onClick={increaseStep}>+</button>
+      </div>
+
+      <div>
+        <button onClick={decrementCount}>-</button>
+        <span>Count:{count}</span>
+        <button onClick={increaseCount}>+</button>
+      </div>
+      <div>
+        <span>
+          {count === 0
+            ? "Today is "
+            : count > 0
+            ? `${count} days from today is `
+            : `${Math.abs(count)} days ago was `}
+        </span>
+        <span>{date.toDateString()}</span>
+      </div>
+    </div>
+  );
+}
